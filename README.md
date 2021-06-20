@@ -1,7 +1,9 @@
 # react-mesto-api-full
 
 [Ссылка на выполненую работу](https://charlesmickey.nomoredomains.monster/)
+
 domain: https://charlesmickey.nomoredomains.monster/
+
 ip: 178.154.201.71
 
 Репозиторий для приложения проекта `Mesto`,
