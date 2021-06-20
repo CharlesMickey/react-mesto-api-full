@@ -1,0 +1,24 @@
+.header__text {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.22;
+  text-align: right;
+  color: #ffffff;
+  margin: 6px 0 46px;
+}
+
+@media screen and (max-width: 907px) {
+  .header__text {
+    margin-right: 15px;
+  }
+}
+
+@media screen and (max-width: 495px) {
+  .header__text {
+    font-size: 14px;
+    line-height: 1.21;
+    margin-bottom: 33px;
+  }
+}

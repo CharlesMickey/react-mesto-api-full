@@ -1,0 +1,9 @@
+.formAuth {
+  display: flex;
+  background-color: #000000;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+}
+
+

@@ -1,0 +1,10 @@
+.formAuth__set {
+  max-width: 362px;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+

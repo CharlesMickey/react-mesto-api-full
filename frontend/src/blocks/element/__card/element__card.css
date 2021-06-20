@@ -1,0 +1,7 @@
+.element__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: 25px 15px 21px 31px;
+}

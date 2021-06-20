@@ -1,0 +1,12 @@
+.popup__set {
+  max-width: 362px;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+}
+
+@media screen and (max-width: 565px) {
+  .popup__set {
+    max-width: 85%;
+  }
+}

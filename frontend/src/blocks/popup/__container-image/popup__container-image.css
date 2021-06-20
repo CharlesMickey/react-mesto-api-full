@@ -1,0 +1,8 @@
+.popup__container-image {
+  margin: auto;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+

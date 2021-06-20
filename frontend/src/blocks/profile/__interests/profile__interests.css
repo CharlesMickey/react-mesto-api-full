@@ -1,0 +1,21 @@
+.profile__interests {
+  max-width: 336px;
+  margin: 0;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #ffffff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 770px) {
+  .profile__interests {
+    max-width: 282px;
+    margin: 14px auto 0;
+    font-size: 14px;
+    line-height: 1.21;
+    grid-column: 1/3;
+    }
+  }
