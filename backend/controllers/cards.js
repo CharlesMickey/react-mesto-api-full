@@ -5,7 +5,7 @@ const Forbidden = require("../errors/forbidden");
 
 module.exports.getAllCards = (req, res, next) => {
   Card.find({})
-    .sort("-createAt")
+    .sort({ createAt: -1 })
     .then((cards) => res.send(cards))
     .catch(next);
 };
