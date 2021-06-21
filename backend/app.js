@@ -52,6 +52,7 @@ app.use(requestLogger);
 app.use(limiter);
 
 app.use(cors(corsOptions));
+
 app.get("/crash-test", () => {
   setTimeout(() => {
     throw new Error("Сервер сейчас упадёт");
