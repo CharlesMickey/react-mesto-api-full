@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { celebrate, Joi, errors } = require("celebrate");
 const routesUsers = require("./routes/users");
@@ -33,12 +34,20 @@ mongoose.connect("mongodb://localhost:27017/mestodb", {
   useFindAndModify: false,
 });
 
+app.use(
+  "*",
+  cors({
+    origin: "https:/charlesmickey.nomoredomains.monster",
+    credentials: true,
+  })
+);
+
 app.use(cookieParser());
 app.use(requestLogger);
 
-app.get('/crash-test', () => {
+app.get("/crash-test", () => {
   setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
+    throw new Error("Сервер сейчас упадёт");
   }, 0);
 });
 
