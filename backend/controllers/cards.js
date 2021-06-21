@@ -7,7 +7,6 @@ module.exports.getAllCards = (req, res, next) => {
   Card.find({})
     .sort({ date: 1 })
     .then((cards) => res.send(cards))
-    .exec()
     .catch(next);
 };
 
