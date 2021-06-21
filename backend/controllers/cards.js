@@ -6,8 +6,8 @@ const Forbidden = require("../errors/forbidden");
 module.exports.getAllCards = (req, res, next) => {
   Card.find({})
     .sort({ date: 1 })
-    .exec()
     .then((cards) => res.send(cards))
+    .exec()
     .catch(next);
 };
 
