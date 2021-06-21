@@ -22,6 +22,7 @@ const limiter = rateLimit({
   max: 100,
 });
 
+app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,8 +33,6 @@ mongoose.connect("mongodb://localhost:27017/mestodb", {
   useCreateIndex: true,
   useFindAndModify: false,
 });
-
-app.use(cors());
 
 app.use(cookieParser());
 app.use(requestLogger);
