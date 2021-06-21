@@ -38,16 +38,16 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  React.useEffect(() => {
-    api
-      .userInfo()
-      .then((res) => {
-        setCurrentUser(res);
-      })
-      .catch((err) => {
-        console.log(`${err}`);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   api
+  //     .userInfo()
+  //     .then((res) => {
+  //       setCurrentUser(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(`${err}`);
+  //     });
+  // }, []);
 
   function handleAddPlaceSubmit(newCard) {
     setIsLoading(true);
@@ -126,16 +126,16 @@ function App() {
     setSelectedCard(null);
   }
 
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((err) => {
-        console.log(`${err}`);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   api
+  //     .getInitialCards()
+  //     .then((res) => {
+  //       setCards(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(`${err}`);
+  //     });
+  // }, []);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
@@ -195,6 +195,12 @@ function App() {
       .then(({ data: { email } }) => {
         setIsUserEmail({ email });
         setIsLoggedIn(true);
+        return api.userInfo().then((res) => {
+          setCurrentUser(res);
+          return api.getInitialCards().then((res) => {
+            setCards(res);
+          });
+        });
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -233,8 +239,18 @@ function App() {
         setIsUserEmail({ email });
         setIsInfoTooltipOk(true);
         setIsLoggedIn(true);
-        localStorage.setItem("token", token);
-        history.push("/");
+        return api.userInfo().then((res) => {
+          setCurrentUser(res);
+          return api
+            .getInitialCards()
+            .then((res) => {
+              setCards(res);
+            })
+            .then(() => {
+              localStorage.setItem("token", token);
+              history.push("/");
+            });
+        });
       })
       .catch((err) => {
         setIsInfoTooltip(true);
@@ -269,7 +285,8 @@ function App() {
             <Login onLogin={onLogin} />
           </Route>
           <ProtectedRoute
-            exact path="/"
+            exact
+            path="/"
             component={Main}
             isLoggedIn={isLoggedIn}
             cards={cards}

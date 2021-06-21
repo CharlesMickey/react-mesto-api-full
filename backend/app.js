@@ -22,7 +22,6 @@ const limiter = rateLimit({
   max: 100,
 });
 
-app.use(limiter);
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,10 +33,11 @@ mongoose.connect("mongodb://localhost:27017/mestodb", {
   useFindAndModify: false,
 });
 
-app.use(cors())
+app.use(cors());
 
 app.use(cookieParser());
 app.use(requestLogger);
+app.use(limiter);
 
 app.get("/crash-test", () => {
   setTimeout(() => {

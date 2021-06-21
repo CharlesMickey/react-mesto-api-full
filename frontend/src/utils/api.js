@@ -20,15 +20,15 @@ import {options} from './constants.js'
   }
 
   userInfo() {
-    return this._setConfigApi("users/me")
+    return this._setConfigApi("/users/me")
   }
 
   getInitialCards() {
-    return this._setConfigApi("cards")
+    return this._setConfigApi("/cards")
   }
 
   editProfile(data) {
-    return this._setConfigApi("users/me", {
+    return this._setConfigApi("/users/me", {
       method: 'PATCH',
       headers: this._headers,
       credentials: 'include',
@@ -40,7 +40,7 @@ import {options} from './constants.js'
   }
 
   addNewCard(data) {
-    return this._setConfigApi("cards", {
+    return this._setConfigApi("/cards", {
       method: 'POST',
       headers: this._headers,
       credentials: 'include',
@@ -52,7 +52,7 @@ import {options} from './constants.js'
   }
 
   deleteCard(id) {
-    return this._setConfigApi(`cards/${id}`, {
+    return this._setConfigApi(`/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
       credentials: 'include',
@@ -60,7 +60,7 @@ import {options} from './constants.js'
   }
 
   putOrRemoveLike(id, isLiked) {
-    return this._setConfigApi(`cards/likes/${id}`, {
+    return this._setConfigApi(`/cards/likes/${id}`, {
     method: isLiked ? 'DELETE' : 'PUT',
       headers: this._headers,
       credentials: 'include',
@@ -68,7 +68,7 @@ import {options} from './constants.js'
   }
 
   editAvatar(data) {
-    return this._setConfigApi("users/me/avatar", {
+    return this._setConfigApi("/users/me/avatar", {
       method: 'PATCH',
       headers: this._headers,
       credentials: 'include',
