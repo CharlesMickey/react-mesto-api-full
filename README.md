@@ -1,15 +1,19 @@
 # react-mesto-api-full
+
+[Ссылка на выполненую работу](https://charlesmickey.nomoredomains.monster/)
+
+domain: https://charlesmickey.nomoredomains.monster/
+
+ip: 178.154.201.71
+
 Репозиторий для приложения проекта `Mesto`,
 включающий фронтенд и бэкенд части приложения со следующими возможностями:
 авторизации и регистрации пользователей, 
 операции с карточками и пользователями.
 Бэкенд расположен в директории `backend/`, а фронтенд - в `frontend/`.
 
-Для того, чтобы оценить возможности приложения необходимо 
-запустить [фронтенд](https://github.com/srvds8080/react-mesto-api-full/tree/main/frontend/#readme) и [бэкенд](https://github.com/srvds8080/react-mesto-api-full/tree/main/backend/#readme) части.
-
 ***Убедитесь, что у вас установлен node.js не ниже версии 14.***
-* Клонируйте [репозиторий](https://github.com/srvds8080/react-mesto-api-full.git).
+* Клонируйте [репозиторий](https://github.com/CharlesMickey/react-mesto-api-full.git).
 
 ## Бэкенд
 * Перейдите в папку backend/
