@@ -186,23 +186,18 @@ function App() {
     }
   }
   const tokenCheck = () => {
-    if (localStorage.loggedIn !== true) {
+    const jwt = localStorage.getItem("token");
+    if (!jwt) {
       return;
     }
+
     apiAuth
-      .getContent()
+      .getContent(jwt)
       .then(({ data: { email } }) => {
         setIsUserEmail({ email });
         setIsLoggedIn(true);
-        return api.userInfo().then((res) => {
-          setCurrentUser(res);
-          return api.getInitialCards().then((res) => {
-            setCards(res);
-          });
-        });
       })
       .catch((err) => {
-        localStorage.setItem('loggedIn', false)
         console.log(`${err}`);
       });
   };
@@ -215,7 +210,7 @@ function App() {
     if (isLoggedIn) {
       history.push("/");
     }
-  }, [isLoggedIn, history]);
+  }, [isLoggedIn]);
 
   function onRegister(data) {
     return apiAuth
@@ -235,24 +230,12 @@ function App() {
   function onLogin({ email, password }) {
     return apiAuth
       .authorize({ email, password })
-      .then(() => {
+      .then(({ token }) => {
         setIsUserEmail({ email });
         setIsInfoTooltipOk(true);
         setIsLoggedIn(true);
-        return api.userInfo().then((res) => {
-          setCurrentUser(res);
-          return api
-            .getInitialCards()
-            .then((res) => {
-              if (Array.isArray(res)) {
-                setCards(res);
-              }
-            })
-            .then(() => {
-              localStorage.setItem("loggedIn", true);
-              history.push("/");
-            });
-        });
+        localStorage.setItem("token", token);
+        history.push("/");
       })
       .catch((err) => {
         setIsInfoTooltip(true);
@@ -263,7 +246,7 @@ function App() {
   function onLogOut() {
     setIsInfoTooltipOk(false);
     setIsLoggedIn(false);
-    localStorage.setItem('loggedIn', false);
+    localStorage.removeItem("token");
   }
 
   return (
