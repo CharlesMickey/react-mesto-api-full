@@ -19,7 +19,7 @@ module.exports.getInfoProfile = (req, res, next) => {
       if (!user) {
         throw new NotFoundError("Пользователь с указанным _id не найден.");
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === "ValidationError") {
@@ -35,7 +35,7 @@ module.exports.getUserId = (req, res, next) => {
   User.findById(req.params.userId)
     .then((user) => {
       if (user) {
-        return res.send({ data: user });
+        return res.send(user);
       }
       throw new NotFoundError("Пользователь с указанным _id не найден.");
     })
@@ -116,7 +116,7 @@ module.exports.updateProfile = (req, res, next) => {
       if (!user) {
         throw new NotFoundError("Пользователь с указанным _id не найден.");
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === "ValidationError") {
@@ -142,7 +142,7 @@ module.exports.updateAvatar = (req, res, next) => {
       if (!user) {
         throw new NotFoundError("Пользователь с указанным _id не найден.");
       }
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === "ValidationError") {
