@@ -8,6 +8,7 @@ import {options} from './constants.js'
 
   _setConfigApi(endOfUrl, param = {
     headers: this._headers,
+    credentials: 'include',
   }) {
     return fetch(`${this._addressApi}${endOfUrl}`, param)
       .then(res => {
@@ -30,6 +31,7 @@ import {options} from './constants.js'
     return this._setConfigApi("users/me", {
       method: 'PATCH',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: data.name,
         about: data.about
@@ -41,6 +43,7 @@ import {options} from './constants.js'
     return this._setConfigApi("cards", {
       method: 'POST',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: data.name,
         link: data.link
@@ -52,6 +55,7 @@ import {options} from './constants.js'
     return this._setConfigApi(`cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
+      credentials: 'include',
     })
   }
 
@@ -59,6 +63,7 @@ import {options} from './constants.js'
     return this._setConfigApi(`cards/likes/${id}`, {
     method: isLiked ? 'DELETE' : 'PUT',
       headers: this._headers,
+      credentials: 'include',
     })
   }
 
@@ -66,6 +71,7 @@ import {options} from './constants.js'
     return this._setConfigApi("users/me/avatar", {
       method: 'PATCH',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         avatar: data.avatar,
       })
