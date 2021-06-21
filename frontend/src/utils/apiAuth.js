@@ -33,7 +33,6 @@ export const authorize = ({ password, email }) => {
 
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
-    headers: { ...headers, Authorization: `Bearer ${token}` },
     method: "GET",
     credentials: "include",
   }).then((res) => checkResponse(res));

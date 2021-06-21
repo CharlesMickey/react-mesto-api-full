@@ -38,16 +38,16 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  // React.useEffect(() => {
-  //   api
-  //     .userInfo()
-  //     .then((res) => {
-  //       setCurrentUser(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(`${err}`);
-  //     });
-  // }, []);
+  React.useEffect(() => {
+    api
+      .userInfo()
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }, []);
 
   function handleAddPlaceSubmit(newCard) {
     setIsLoading(true);
@@ -126,16 +126,16 @@ function App() {
     setSelectedCard(null);
   }
 
-  // React.useEffect(() => {
-  //   api
-  //     .getInitialCards()
-  //     .then((res) => {
-  //       setCards(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(`${err}`);
-  //     });
-  // }, []);
+  React.useEffect(() => {
+    api
+      .getInitialCards()
+      .then((res) => {
+        setCards(res);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }, []);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
@@ -186,12 +186,11 @@ function App() {
     }
   }
   const tokenCheck = () => {
-    const jwt = localStorage.getItem("token");
-    if (!jwt) {
+    if (localStorage.loggedIn !== true) {
       return;
     }
     apiAuth
-      .getContent(jwt)
+      .getContent()
       .then(({ data: { email } }) => {
         setIsUserEmail({ email });
         setIsLoggedIn(true);
@@ -203,6 +202,7 @@ function App() {
         });
       })
       .catch((err) => {
+        localStorage.setItem('loggedIn', false)
         console.log(`${err}`);
       });
   };
@@ -215,7 +215,7 @@ function App() {
     if (isLoggedIn) {
       history.push("/");
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, history]);
 
   function onRegister(data) {
     return apiAuth
@@ -235,7 +235,7 @@ function App() {
   function onLogin({ email, password }) {
     return apiAuth
       .authorize({ email, password })
-      .then(({ token }) => {
+      .then(() => {
         setIsUserEmail({ email });
         setIsInfoTooltipOk(true);
         setIsLoggedIn(true);
@@ -244,10 +244,12 @@ function App() {
           return api
             .getInitialCards()
             .then((res) => {
-              setCards(res);
+              if (Array.isArray(res)) {
+                setCards(res);
+              }
             })
             .then(() => {
-              localStorage.setItem("token", token);
+              localStorage.setItem("loggedIn", true);
               history.push("/");
             });
         });
@@ -261,7 +263,7 @@ function App() {
   function onLogOut() {
     setIsInfoTooltipOk(false);
     setIsLoggedIn(false);
-    localStorage.removeItem("token");
+    localStorage.setItem('loggedIn', false);
   }
 
   return (
