@@ -60,7 +60,7 @@ import {options} from './constants.js'
   }
 
   putOrRemoveLike(id, isLiked) {
-    return this._setConfigApi(`/cards/likes/${id}`, {
+    return this._setConfigApi(`/cards/${id}/likes`, {
     method: isLiked ? 'DELETE' : 'PUT',
       headers: this._headers,
       credentials: 'include',

@@ -9,8 +9,8 @@ function Card({
   onDeleteCardPopupOpen,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
-  const isOwner = card.owner._id === currentUser._id;
-  const isLiked = card.likes.some((like) => like._id === currentUser._id);
+  const isOwner = card.owner === currentUser._id;
+  const isLiked = card.likes.some((like) => like === currentUser._id);
 
   const cardDeleteButtonClassName = `element__trash ${
     isOwner ? "element__trash_visible" : ""

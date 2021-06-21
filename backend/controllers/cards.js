@@ -33,9 +33,7 @@ module.exports.deleteCard = (req, res, next) => {
       if (card.owner.toString() !== req.user._id) {
         throw new Forbidden("Можно удалять только свои карточки.");
       } else {
-        Card.findByIdAndRemove(req.params.cardId).then(() =>
-          res.send({ data: card })
-        );
+        Card.findByIdAndRemove(req.params.cardId).then(() => res.send(card));
       }
     })
     .catch((err) => {
@@ -58,7 +56,7 @@ module.exports.likeCard = (req, res, next) => {
           "Переданы некорректные данные для постановки лайка."
         );
       }
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((err) => {
       if (err.name === "CastError") {
@@ -80,7 +78,7 @@ module.exports.dislikeCard = (req, res, next) => {
           "Переданы некорректные данные для снятия лайка."
         );
       }
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((err) => {
       if (err.name === "CastError") {
