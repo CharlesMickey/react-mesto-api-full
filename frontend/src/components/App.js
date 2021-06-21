@@ -204,13 +204,13 @@ function App() {
 
   React.useEffect(() => {
     tokenCheck();
-  }, []);
+  }, [isLoggedIn]);
 
   React.useEffect(() => {
     if (isLoggedIn) {
       history.push("/");
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, history]);
 
   function onRegister(data) {
     return apiAuth
@@ -230,11 +230,11 @@ function App() {
   function onLogin({ email, password }) {
     return apiAuth
       .authorize({ email, password })
-      .then(({ token }) => {
+      .then(() => {
         setIsUserEmail({ email });
         setIsInfoTooltipOk(true);
         setIsLoggedIn(true);
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", email);
         history.push("/");
       })
       .catch((err) => {
@@ -263,13 +263,7 @@ function App() {
           isLoggedIn={isLoggedIn}
         />
         <Switch>
-          <Route path="/signup">
-            <Register onRegister={onRegister} />
-          </Route>
-          <Route path="/signin">
-            <Login onLogin={onLogin} />
-          </Route>
-          <ProtectedRoute
+        <ProtectedRoute
             exact
             path="/"
             component={Main}
@@ -283,10 +277,16 @@ function App() {
             onEditPlace={handleAddPlaceClick}
             onCardClick={handleCardClick}
           />
+          <Route path="/signup">
+            <Register onRegister={onRegister} />
+          </Route>
+          <Route path="/signin">
+            <Login onLogin={onLogin} />
+          </Route>
+           <Route>
+            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
+          </Route>
         </Switch>
-        <Route>
-          {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
-        </Route>
         {isLoggedIn && <Footer />}
         <EditAvatarPopup
           isLoading={isLoading}
