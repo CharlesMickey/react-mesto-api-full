@@ -22,7 +22,20 @@ const limiter = rateLimit({
   max: 100,
 });
 
-app.use(cors());
+const corsWhiteList = [
+  "https://charlesmickey.nomoredomains.monster",
+  "http://charlesmickey.nomoredomains.monster",
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (corsWhiteList.indexOf(origin) !== -1) {
+      callback(null, true);
+    }
+  },
+  credentials: true,
+};
+
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,6 +51,7 @@ app.use(cookieParser());
 app.use(requestLogger);
 app.use(limiter);
 
+app.use(cors(corsOptions));
 app.get("/crash-test", () => {
   setTimeout(() => {
     throw new Error("Сервер сейчас упадёт");
