@@ -1,5 +1,6 @@
-const { MON_BASE } = process.env;
 require("dotenv").config();
+
+const { MON_BASE } = process.env;
 const express = require("express");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
