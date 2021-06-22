@@ -138,7 +138,7 @@ function App() {
   }, []);
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((like) => like === currentUser._id);
+    const isLiked = card.likes.some((like) => like._id === currentUser._id);
 
     api
       .putOrRemoveLike(card._id, isLiked)
@@ -190,7 +190,6 @@ function App() {
     if (!jwt) {
       return;
     }
-
     apiAuth
       .getContent(jwt)
       .then(({ data: { email } }) => {
@@ -204,13 +203,13 @@ function App() {
 
   React.useEffect(() => {
     tokenCheck();
-  }, [isLoggedIn]);
+  }, []);
 
   React.useEffect(() => {
     if (isLoggedIn) {
       history.push("/");
     }
-  }, [isLoggedIn, history]);
+  }, [isLoggedIn]);
 
   function onRegister(data) {
     return apiAuth
@@ -230,11 +229,11 @@ function App() {
   function onLogin({ email, password }) {
     return apiAuth
       .authorize({ email, password })
-      .then(() => {
+      .then(({ token }) => {
         setIsUserEmail({ email });
         setIsInfoTooltipOk(true);
         setIsLoggedIn(true);
-        localStorage.setItem("token", "token");
+        localStorage.setItem("token", token);
         history.push("/");
       })
       .catch((err) => {
@@ -263,7 +262,13 @@ function App() {
           isLoggedIn={isLoggedIn}
         />
         <Switch>
-        <ProtectedRoute
+          <Route path="/signup">
+            <Register onRegister={onRegister} />
+          </Route>
+          <Route path="/signin">
+            <Login onLogin={onLogin} />
+          </Route>
+          <ProtectedRoute
             exact
             path="/"
             component={Main}
@@ -277,13 +282,7 @@ function App() {
             onEditPlace={handleAddPlaceClick}
             onCardClick={handleCardClick}
           />
-          <Route path="/signup">
-            <Register onRegister={onRegister} />
-          </Route>
-          <Route path="/signin">
-            <Login onLogin={onLogin} />
-          </Route>
-           <Route>
+          <Route>
             {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
           </Route>
         </Switch>

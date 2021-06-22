@@ -31,9 +31,8 @@ export const authorize = ({ password, email }) => {
   }).then((res) => checkResponse(res));
 };
 
-export const getContent = (token) => {
+export const getContent = () => {
   return fetch(`${BASE_URL}/users/me`, {
-    headers: { ...headers, Authorization: `Bearer ${token}` },
     method: "GET",
     credentials: "include",
   }).then((res) => checkResponse(res));
