@@ -1,3 +1,4 @@
+const { MON_BASE } = process.env;
 require("dotenv").config();
 const express = require("express");
 const helmet = require("helmet");
@@ -40,7 +41,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb://localhost:27017/mestodb", {
+mongoose.connect(MON_BASE, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,

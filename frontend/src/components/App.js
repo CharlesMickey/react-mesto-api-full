@@ -234,7 +234,7 @@ function App() {
         setIsUserEmail({ email });
         setIsInfoTooltipOk(true);
         setIsLoggedIn(true);
-        localStorage.setItem("token", email);
+        localStorage.setItem("token", "token");
         history.push("/");
       })
       .catch((err) => {
