@@ -1,6 +1,6 @@
 # react-mesto-api-full
 
-[Ссылка на выполненую работу](https://charlesmickey.nomoredomains.monster/)
+[Ссылка на выполненную работу](https://charlesmickey.nomoredomains.monster/)
 
 domain: https://charlesmickey.nomoredomains.monster/
 
